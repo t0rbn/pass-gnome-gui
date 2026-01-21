@@ -5,7 +5,7 @@ pkgrel=1
 pkgdesc="A GTK4 GUI for the pass password manager"
 arch=('any')
 url="https://github.com/yourusername/pass-gnome-gui"
-license=('GPL3')
+license=('WTFPL')
 depends=('python' 'python-gobject' 'gtk4' 'libadwaita' 'pass')
 source=('src/pass_gui.py'
         'src/application.py'

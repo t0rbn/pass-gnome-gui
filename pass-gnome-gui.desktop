@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=GTK Password Manager
+Name=pass GTK
 Comment=GTK4 GUI for the pass password manager
 Exec=pass-gnome-gui
 Icon=pass-gnome-gui
