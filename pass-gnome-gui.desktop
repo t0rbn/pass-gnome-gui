@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GTK Password Manager
+Comment=GTK4 GUI for the pass password manager
+Exec=pass-gnome-gui
+Icon=pass-gnome-gui
+Terminal=false
+Type=Application
+Categories=Utility;Security;
+Keywords=password;pass;security;gpg;
