@@ -19,11 +19,11 @@ sha256sums=('SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP' 'SKIP')
 package() {
     # Install Python modules to a package directory
     install -dm755 "$pkgdir/usr/lib/pass-gnome-gui"
-    install -Dm644 "$srcdir/application.py" "$pkgdir/usr/lib/pass-gnome-gui/application.py"
-    install -Dm644 "$srcdir/window.py" "$pkgdir/usr/lib/pass-gnome-gui/window.py"
-    install -Dm644 "$srcdir/password_store.py" "$pkgdir/usr/lib/pass-gnome-gui/password_store.py"
-    install -Dm644 "$srcdir/password_card.py" "$pkgdir/usr/lib/pass-gnome-gui/password_card.py"
-    install -Dm755 "$srcdir/pass_gui.py" "$pkgdir/usr/lib/pass-gnome-gui/pass_gui.py"
+    install -Dm644 "$srcdir/src/application.py" "$pkgdir/usr/lib/pass-gnome-gui/application.py"
+    install -Dm644 "$srcdir/src/window.py" "$pkgdir/usr/lib/pass-gnome-gui/window.py"
+    install -Dm644 "$srcdir/src/password_store.py" "$pkgdir/usr/lib/pass-gnome-gui/password_store.py"
+    install -Dm644 "$srcdir/src/password_card.py" "$pkgdir/usr/lib/pass-gnome-gui/password_card.py"
+    install -Dm755 "$srcdir/src/pass_gui.py" "$pkgdir/usr/lib/pass-gnome-gui/pass_gui.py"
 
     # Install launcher script
     install -dm755 "$pkgdir/usr/bin"
