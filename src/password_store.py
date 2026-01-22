@@ -17,28 +17,6 @@ class PasswordStore:
         self.store_path = Path(os.environ.get('PASSWORD_STORE_DIR',
                                                Path.home() / '.password-store'))
 
-    def get_folder_tree(self):
-        """Returns a nested dict representing the folder structure."""
-        tree = {}
-        if not self.store_path.exists():
-            return tree
-
-        for root, dirs, files in os.walk(self.store_path):
-            # Skip .git directory
-            dirs[:] = [d for d in dirs if not d.startswith('.')]
-
-            rel_path = Path(root).relative_to(self.store_path)
-
-            # Get the current node in our tree
-            current = tree
-            if str(rel_path) != '.':
-                for part in rel_path.parts:
-                    if part not in current:
-                        current[part] = {}
-                    current = current[part]
-
-        return tree
-
     def get_entries_in_folder(self, folder_path):
         """Returns list of password entries (without .gpg extension) in a folder."""
         if folder_path == '':
@@ -80,7 +58,7 @@ class PasswordStore:
         thread = threading.Thread(target=_get, daemon=True)
         thread.start()
 
-    def copy_to_clipboard(self, entry_path, callback=None):
+    def copy_to_clipboard(self, entry_path):
         """Copy password to clipboard using pass -c (runs in background thread)."""
         def _copy():
             try:
@@ -89,11 +67,8 @@ class PasswordStore:
                     capture_output=True,
                     timeout=30
                 )
-                if callback:
-                    GLib.idle_add(callback, True)
             except (subprocess.TimeoutExpired, FileNotFoundError):
-                if callback:
-                    GLib.idle_add(callback, False)
+                pass
 
         thread = threading.Thread(target=_copy, daemon=True)
         thread.start()

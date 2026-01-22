@@ -63,40 +63,38 @@ class PasswordCard(Gtk.Box):
         copy_button.connect('clicked', self.on_copy_clicked)
         password_row.append(copy_button)
 
-    def on_unmask_clicked(self, button):
+    def on_unmask_clicked(self, _):
         """Toggle password visibility."""
         if not self.unmasked:
+            self.unmasked = True
+            self.unmask_button.set_icon_name('view-conceal-symbolic')
             # Fetch password if not already fetched
             if self.password is None:
                 self.unmask_button.set_sensitive(False)
                 self.password_entry.set_text('Loading...')
                 self.store.get_password(self.entry_path, self._on_password_received)
             else:
-                self._show_password()
+                self.password_entry.set_text(self.password)
         else:
             self._hide_password()
 
     def _on_password_received(self, password):
         """Callback when password is retrieved."""
-        self.unmask_button.set_sensitive(True)
         self.password = password
+        self.unmask_button.set_sensitive(True)
         if password:
-            self._show_password()
+            self.password_entry.set_text(self.password)
         else:
             self.password_entry.set_text('Error')
-
-    def _show_password(self):
-        """Show the unmasked password."""
-        self.password_entry.set_text(self.password)
-        self.unmask_button.set_icon_name('view-conceal-symbolic')
-        self.unmasked = True
+            self.unmasked = False
+            self.unmask_button.set_icon_name('view-reveal-symbolic')
 
     def _hide_password(self):
         """Hide the password with mask."""
+        self.unmasked = False
         self.password_entry.set_text('••••••••')
         self.unmask_button.set_icon_name('view-reveal-symbolic')
-        self.unmasked = False
 
-    def on_copy_clicked(self, button):
+    def on_copy_clicked(self, _):
         """Copy password to clipboard."""
         self.store.copy_to_clipboard(self.entry_path)
