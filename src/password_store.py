@@ -72,3 +72,18 @@ class PasswordStore:
 
         thread = threading.Thread(target=_copy, daemon=True)
         thread.start()
+
+    def copy_username_to_clipboard(self, username):
+        """Copy username to clipboard using wl-copy (runs in background thread)."""
+        def _copy():
+            try:
+                subprocess.run(
+                    ['wl-copy', username],
+                    capture_output=True,
+                    timeout=10
+                )
+            except (subprocess.TimeoutExpired, FileNotFoundError):
+                pass
+
+        thread = threading.Thread(target=_copy, daemon=True)
+        thread.start()

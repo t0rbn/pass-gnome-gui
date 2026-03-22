@@ -1,12 +1,12 @@
 # Maintainer: Your Name <your.email@example.com>
 pkgname=pass-gnome-gui
-pkgver=1.0.0
+pkgver=1.0.1
 pkgrel=1
 pkgdesc="A GTK4 GUI for the pass password manager"
 arch=('any')
 url="https://github.com/t0rbn/pass-gnome-gui"
 license=('WTFPL')
-depends=('python' 'python-gobject' 'gtk4' 'libadwaita' 'pass')
+depends=('python' 'python-gobject' 'gtk4' 'libadwaita' 'pass' 'wl-clipboard')
 
 package() {
     cd "$startdir"

@@ -31,11 +31,21 @@ class PasswordCard(Gtk.Box):
         inner_box.set_margin_bottom(16)
         self.append(inner_box)
 
-        # Username label (title)
+        # Username row
+        username_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
+        inner_box.append(username_row)
+
         username_label = Gtk.Label(label=entry_name)
         username_label.set_xalign(0)
+        username_label.set_hexpand(True)
         username_label.add_css_class('title-3')
-        inner_box.append(username_label)
+        username_row.append(username_label)
+
+        copy_username_button = Gtk.Button()
+        copy_username_button.set_icon_name('edit-copy-symbolic')
+        copy_username_button.set_tooltip_text('Copy username to clipboard')
+        copy_username_button.connect('clicked', self.on_copy_username_clicked)
+        username_row.append(copy_username_button)
 
         # Password row
         password_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
@@ -94,6 +104,10 @@ class PasswordCard(Gtk.Box):
         self.unmasked = False
         self.password_entry.set_text('••••••••')
         self.unmask_button.set_icon_name('view-reveal-symbolic')
+
+    def on_copy_username_clicked(self, _):
+        """Copy username to clipboard."""
+        self.store.copy_username_to_clipboard(self.entry_name)
 
     def on_copy_clicked(self, _):
         """Copy password to clipboard."""
