@@ -35,17 +35,26 @@ class PasswordCard(Gtk.Box):
         username_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
         inner_box.append(username_row)
 
-        username_label = Gtk.Label(label=entry_name)
-        username_label.set_xalign(0)
-        username_label.set_hexpand(True)
-        username_label.add_css_class('title-3')
-        username_row.append(username_label)
-
+        # Flat button containing username label + dim copy indicator
         copy_username_button = Gtk.Button()
-        copy_username_button.set_icon_name('edit-copy-symbolic')
-        copy_username_button.set_tooltip_text('Copy username to clipboard')
-        copy_username_button.connect('clicked', self.on_copy_username_clicked)
+        copy_username_button.add_css_class('flat')
+        copy_username_button.set_hexpand(True)
+        copy_username_button.set_halign(Gtk.Align.START)
+        copy_username_button.set_tooltip_text('Click to copy username')
+        copy_username_button.connect('clicked', lambda *_: self.on_copy_username_clicked())
         username_row.append(copy_username_button)
+
+        username_inner = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=4)
+        copy_username_button.set_child(username_inner)
+
+        username_label = Gtk.Label(label=entry_name)
+        username_label.add_css_class('title-3')
+        username_inner.append(username_label)
+
+        copy_indicator = Gtk.Image.new_from_icon_name('edit-copy-symbolic')
+        copy_indicator.set_icon_size(Gtk.IconSize.NORMAL)
+        copy_indicator.add_css_class('dim-label')
+        username_inner.append(copy_indicator)
 
         # Password row
         password_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=8)
@@ -105,7 +114,7 @@ class PasswordCard(Gtk.Box):
         self.password_entry.set_text('••••••••')
         self.unmask_button.set_icon_name('view-reveal-symbolic')
 
-    def on_copy_username_clicked(self, _):
+    def on_copy_username_clicked(self):
         """Copy username to clipboard."""
         self.store.copy_username_to_clipboard(self.entry_name)
 

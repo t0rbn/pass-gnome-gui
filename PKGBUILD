@@ -1,6 +1,6 @@
 # Maintainer: Your Name <your.email@example.com>
 pkgname=pass-gnome-gui
-pkgver=1.0.1
+pkgver=1.0.2
 pkgrel=1
 pkgdesc="A GTK4 GUI for the pass password manager"
 arch=('any')
